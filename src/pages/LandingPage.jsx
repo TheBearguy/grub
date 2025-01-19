@@ -1,6 +1,14 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Card, CardContent } from "@/components/ui/card"
+import {
+Carousel,
+CarouselContent,
+CarouselItem,
+CarouselNext,
+CarouselPrevious,
+} from "@/components/ui/carousel"
 
 function LandingPage() {
   return (
@@ -19,7 +27,13 @@ function LandingPage() {
             <Button variant="destructive" size="xl" >Post Jobs</Button>
             </Link>
         </div>
-            carousel
+        {/* CAROUSEL */}
+            <Carousel className="w-full py-10">
+            <CarouselContent>
+               {com}
+            </CarouselContent>
+            </Carousel>
+
         banner
         <section>
             cards
