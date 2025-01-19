@@ -108,6 +108,15 @@
   }
 }
 
+@layer utilities{
+    .gradient{
+        @apply bg-gradient-to-br from-gray-800 via-gray-300 to-white;
+    }
+    .gradient-title{
+        @apply gradient text-transparent bg-clip-text;
+    }
+}
+
 @layer base {
   * {
     @apply border-border;
