@@ -8,45 +8,70 @@ import Onboarding from './pages/Onboarding'
 import JobListing from './pages/JobListing'
 import JobPage from './pages/Job'
 import PostJob from './pages/PostJob'
-import SavedJob from './pages/SavedJob'
+import SavedJobs from './pages/SavedJobs'
 import MyJobs from './pages/MyJobs'
 import { ThemeProvider } from './components/ThemeProvider'
+import AuthLayout from './components/AuthLayout'
 
 const router = createBrowserRouter([
-    {
-        element: <AppLayout/>,
-        children: [
-            {
-                path: "/",
-                element: <LandingPage/>
-            },
-            {
-                path: "/onboarding",
-                element: <Onboarding/>
-            },
-            {
-                path: "/jobs",
-                element: <JobListing/>
-            },
-            {
-                path: "/job/:id",
-                element: <JobPage/>
-            },
-            {
-                path: "/post-job",
-                element: <PostJob/>
-            },
-            {
-                path: "/saved-jobs",
-                element: <SavedJob/>
-            },
-            {
-                path: "/my-jobs",
-                element: <MyJobs/>
-            }
-        ]
-    }
-])
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <LandingPage />,
+      },
+      {
+        path: "/onboarding",
+        element: (
+          <AuthLayout>
+            <Onboarding />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/jobs",
+        element: (
+          <AuthLayout>
+            <JobListing />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/post-job",
+        element: (
+          <AuthLayout>
+            <PostJob />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/my-jobs",
+        element: (
+          <AuthLayout>
+            <MyJobs />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/saved-jobs",
+        element: (
+          <AuthLayout>
+            <SavedJobs />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/job/:id",
+        element: (
+          <AuthLayout>
+            <JobPage />
+          </AuthLayout>
+        ),
+      },
+    ],
+  },
+]);
 
 
 function App() {

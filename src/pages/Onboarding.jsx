@@ -1,7 +1,14 @@
+import { useUser } from '@clerk/clerk-react'
 import React from 'react'
 
 function Onboarding() {
-  return (
+    const {user, isLoaded} = useUser()
+
+    
+
+
+
+    return (
     <div>Onboarding</div>
   )
 }
