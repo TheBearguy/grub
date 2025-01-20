@@ -4,14 +4,11 @@ import { Navigate, useLoaderData, useLocation, useNavigate } from 'react-router-
 
 function AuthLayout({children}) {
     const { isSignedIn, isLoaded, user } = useUser();
-    const { pathname } = useLocation();
+    // const { pathname } = useLocation();
 
     if (isLoaded && !isSignedIn && isSignedIn !== undefined) {
         return <Navigate to="/?sign-in=true" />;
     }
-
-    // check onboarding user
-    
 }
 
 export default AuthLayout;
