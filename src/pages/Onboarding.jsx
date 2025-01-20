@@ -17,7 +17,7 @@ function Onboarding() {
         return <BarLoader  className='mb-4' width={"100%"} color='#36d7b7'/>;
     }
     async function handleRoleSelection(role) {
-        user.update({
+        await user.update({
             unsafeMetadata: {role}
         }).then(() => {
             navigate(role === "candidate"? "/jobs" : "/post-job")
