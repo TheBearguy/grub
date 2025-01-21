@@ -1,7 +1,7 @@
 import supabaseClient from "@/utils/supabase";
 
 export async function getJobs(token, {location, company_id, searchQuery}) {
-    const supabase = await supabaseClient(token)
+    const supabase = await supabaseClient(token);
     let query = supabase.from("jobs").select("*");
     if (location) {
         query = query.eq("location", location);
@@ -12,10 +12,11 @@ export async function getJobs(token, {location, company_id, searchQuery}) {
     if (searchQuery) {
         query = query.ilike("title", `%${searchQuery}%`);
     }
-    const {data, error} = query;
+    const {data, error} = await query;
     if (error) {
         console.error("ERROR FETCHING THE JOBS FROM DB :: ", error);
         return null;
     }
+    console.log("DATA FROM CB :: ", data)
     return data;
 }

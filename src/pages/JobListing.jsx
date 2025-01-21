@@ -11,6 +11,9 @@ function JobListing() {
     const {isLoaded}  = useUser();
     const {fn: fnJobs, data: jobs, loading: loadingJobs} = useFetch(getJobs,{location,  company_id, searchQuery} )
     console.log(jobs);
+    console.log(loadingJobs);
+
+
 
     useEffect(()=> {
         if(isLoaded) {
@@ -38,11 +41,7 @@ function JobListing() {
             {jobs?.length ? (
                 jobs.map((job) => {
                 return (
-                    <JobCard
-                    key={job.id}
-                    job={job}
-                    savedInit={job?.saved?.length > 0}
-                    />
+                    <div>{job.title}</div>
                 );
                 })
                 ) : (
