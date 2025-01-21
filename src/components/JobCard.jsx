@@ -1,18 +1,28 @@
 import { useUser } from '@clerk/clerk-react'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Heart, MapPinIcon, Trash2Icon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import useFetch from '@/hooks/useFetch';
+import { savedJobs } from '@/api/apiJobs';
 
-function JobCard({job, isMyJob=false, savedInit=false, onJobSaved = () => {}}) {
-
+function JobCard({job, isMyJob=false, savedInit=false, onJobAction = () => {}}) {
+    const [saved, setSaved] = useState(savedInit);
     const {user} = useUser();
-    const [isFilled, setIsFilled] = useState(false); // State to track if the heart is filled
-
-    const fillHeart = () => {
-        setIsFilled(!isFilled); // Toggle the filled state
-    };
+    const {fn: fnSavedJob, data:savedJob, loading: loadingSavedJob}  = useFetch(savedJobs);
+    async function handleSaveJob () {
+        await fnSavedJob({
+            user_id: user.id,
+            job_id: job.id,
+        }, {alreadySaved: saved});
+        onJobAction();
+    }
+    useEffect(() => {
+        if (savedJob !== undefined) {
+            setSaved(savedJob?.length > 0);
+        }
+    }, [savedJob])
 
     return (
         <Card>
@@ -44,14 +54,16 @@ function JobCard({job, isMyJob=false, savedInit=false, onJobSaved = () => {}}) {
                         More Details
                     </Button>
                </Link>
-               <Heart
-                    stroke='red'
-                    size={20}
-                    color={isFilled ? "red" : "black"} // Change color based on state
-                    fill={isFilled ? "red" : "none"} // Fill the heart when filled
-                    className="cursor-pointer"
-                    onClick={fillHeart} // Toggle state on click
-                />
+               {!isMyJob && (
+                <Button variant="outline" className="w-15" disabled={loadingSavedJob} onClick={handleSaveJob} >
+                    {saved ? (
+                        <Heart stroke='red' fill='red' size={20} />
+                    ) : (
+                            <Heart size={20} />
+                        )
+                    }
+                </Button>
+               )}
             </CardFooter>
         </Card>
   )
