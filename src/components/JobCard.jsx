@@ -10,12 +10,14 @@ import { savedJobs } from '@/api/apiJobs';
 function JobCard({job, isMyJob=false, savedInit=false, onJobAction = () => {}}) {
     const [saved, setSaved] = useState(savedInit);
     const {user} = useUser();
-    const {fn: fnSavedJob, data:savedJob, loading: loadingSavedJob}  = useFetch(savedJobs);
+    const {fn: fnSavedJob, data:savedJob, loading: loadingSavedJob}  = useFetch(savedJobs, {
+        alreadySaved: saved
+    });
     async function handleSaveJob () {
         await fnSavedJob({
             user_id: user.id,
             job_id: job.id,
-        }, {alreadySaved: saved});
+        })
         onJobAction();
     }
     useEffect(() => {

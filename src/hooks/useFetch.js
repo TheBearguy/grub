@@ -17,7 +17,7 @@ const useFetch = (cb, options = {}) => {
         template: "supabase",
       });
       const response = await cb(supabaseAccessToken, options, ...args);
-      console.log("DATA FROM useFetch HOOK :: ", response);
+    //   console.log("DATA FROM useFetch HOOK :: ", response);
 
       setData(response);
       setError(null);

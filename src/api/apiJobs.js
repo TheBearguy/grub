@@ -22,11 +22,16 @@ export async function getJobs(token, {location, company_id, searchQuery}) {
 }
 
 
-export async function savedJobs({alreadySaved}, saveData) {
+export async function savedJobs(token, {alreadySaved}, saveData) {
+    console.log("From the savedJobs api cb *****************************************************************");
+    console.log(saveData);
+
     const supabase = await supabaseClient(token);
     if (alreadySaved) {
         let query = supabase.from("saved_jobs").delete().eq("job_id", saveData.job_id)
         const {data, error: deleteError} = await query;
+        console.log("DATA WHEN JOB IS ALREADY SAVED :: ", data);
+
         if (deleteError) {
             console.error("ERROR DELETING THE SAVED JOBS :: ", deleteError);
             return null;
@@ -36,6 +41,8 @@ export async function savedJobs({alreadySaved}, saveData) {
     else {
         let query = supabase.from("saved_jobs").insert([saveData]).select();
         const {data, error: insertError} = await query;
+        console.log("DATA WHEN JOB IS NOT ALREADY SAVED",data);
+
         if (insertError) {
             console.error("ERROR INSERTING JOB IN SAVED JOBS :: ", insertError)
         }

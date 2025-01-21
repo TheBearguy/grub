@@ -12,8 +12,8 @@ function JobListing() {
     const [company_id, setCompany_id] = useState("");
     const {isLoaded}  = useUser();
     const {fn: fnJobs, data: jobs, loading: loadingJobs} = useFetch(getJobs,{location,  company_id, searchQuery} )
-    console.log(jobs);
-    console.log(loadingJobs);
+    // console.log(jobs);
+    // console.log(loadingJobs);
 
 
 
