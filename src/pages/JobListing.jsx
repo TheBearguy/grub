@@ -3,6 +3,8 @@ import useFetch from '@/hooks/useFetch';
 import { useSession, useUser } from '@clerk/clerk-react'
 import React, { useEffect, useState } from 'react'
 import { BarLoader } from 'react-spinners';
+import JobCard from '@/components/JobCard';
+
 
 function JobListing() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -41,7 +43,11 @@ function JobListing() {
             {jobs?.length ? (
                 jobs.map((job) => {
                 return (
-                    <div>{job.title}</div>
+                    <JobCard
+                    key={job.id}
+                    job={job}
+                    savedInit={job?.saved?.length > 0}
+                    />
                 );
                 })
                 ) : (
