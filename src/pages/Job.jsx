@@ -7,6 +7,7 @@ import { BarLoader } from 'react-spinners';
 import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
 import MDEditor from '@uiw/react-md-editor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ApplyJobDrawer from '@/components/apply-to-job';
 
 
 
@@ -96,8 +97,11 @@ function Job() {
                 What we are looking for
         </h2>
         <MDEditor.Markdown source={job?.requirements} className="bg-transparent sm:text-lg"/>
-        {/* Render applications:  */}
 
+        {/* Render applications:  */}
+        {job?.recruiter_id !== user?.id && (
+            <ApplyJobDrawer job={job} user={user} fetchJob={fnJob} applied={job?.applications.find((applicant) => applicant.candidate_id === user.id)} />
+        )}
 
 
     </div>
