@@ -7,7 +7,7 @@ import JobCard from '@/components/JobCard';
 import { getCompanies } from '@/api/apiCompanies';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectLabel,SelectItem,  } from '@radix-ui/react-select';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from '@/components/ui/select';
 import { State } from 'country-state-city';
 
 function JobListing() {
@@ -72,63 +72,61 @@ function JobListing() {
 
         <div className="flex flex-col sm:flex-row gap-4 p-4 w-full">
   {/* Location Filter */}
-  <div className="flex-grow">
-    <Select value={location} onValueChange={(value) => setLocation(value)}>
-      <SelectTrigger className="w-full border border-gray-600 bg-gray-800 text-white p-2 rounded-md shadow-md">
-        <SelectValue placeholder="Filter by Location" />
-      </SelectTrigger>
-      <SelectContent className="bg-gray-900 text-white">
-        <SelectGroup>
-          {State.getStatesOfCountry("IN").map(({ name }) => (
-            <SelectItem
-              key={name}
-              value={name}
-              className="hover:bg-gray-700 p-2 rounded-md"
-            >
-              {name}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  </div>
+        <div className="flex flex-col sm:flex-row gap-2 w-2/5">
+            <Select value={location} onValueChange={(value) => setLocation(value)}>
+            <SelectTrigger>
+                <SelectValue placeholder="Filter by Location" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                {State.getStatesOfCountry("IN").map(({ name }) => (
+                    <SelectItem
+                    key={name}
+                    value={name}
+                    className="hover:bg-gray-700 p-2 rounded-md"
+                    >
+                    {name}
+                    </SelectItem>
+                ))}
+                </SelectGroup>
+            </SelectContent>
+            </Select>
+        </div>
 
-  {/* Company Filter */}
-  <div className="flex-grow">
-    <Select
-      value={company_id}
-      onValueChange={(value) => setCompany_id(value)}
-    >
-      <SelectTrigger className="w-full border border-gray-600 bg-gray-800 text-white p-2 rounded-md shadow-md">
-        <SelectValue placeholder="Filter by Company" />
-      </SelectTrigger>
-      <SelectContent className="bg-gray-900 text-white">
-        <SelectGroup>
-          {companies?.map(({ name, id }) => (
-            <SelectItem
-              key={id}
-              value={id}
-              className="hover:bg-gray-700 p-2 rounded-md"
+        {/* Company Filter */}
+        <div className="flex flex-col sm:flex-row gap-2 w-2/5">
+            <Select
+            value={company_id}
+            onValueChange={(value) => setCompany_id(value)}
             >
-              {name}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  </div>
+            <SelectTrigger>
+                <SelectValue placeholder="Filter by Company" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                {companies?.map(({ name, id }) => (
+                    <SelectItem
+                    key={id}
+                    value={id}
+                    className="hover:bg-gray-700 p-2 rounded-md"
+                    >
+                    {name}
+                    </SelectItem>
+                ))}
+                </SelectGroup>
+            </SelectContent>
+            </Select>
+        </div>
 
-  {/* Clear Filters Button */}
-  <div className="flex-none w-32">
-    <Button
-      className="w-full border border-red-600 bg-red-800 text-white p-2 rounded-md shadow-md hover:bg-red-700"
-      variant="destructive"
-      onClick={clearFilters}
-    >
-      Clear Filters
-    </Button>
-  </div>
-</div>
+        {/* Clear Filters Button */}
+        <Button
+          className="sm:w-2/12"
+          variant="destructive"
+          onClick={clearFilters}
+        >
+          Clear Filters
+        </Button>
+        </div>
 
 
       {loadingJobs && (

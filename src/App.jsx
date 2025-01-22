@@ -6,7 +6,7 @@ import AppLayout from './layouts/app.layout'
 import LandingPage from './pages/LandingPage'
 import Onboarding from './pages/Onboarding'
 import JobListing from './pages/JobListing'
-import JobPage from './pages/Job'
+import Job from './pages/Job'
 import PostJob from './pages/PostJob'
 import SavedJobs from './pages/SavedJobs'
 import MyJobs from './pages/MyJobs'
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         path: "/job/:id",
         element: (
           <AuthLayout>
-            <JobPage />
+            <Job/>
           </AuthLayout>
         ),
       },
