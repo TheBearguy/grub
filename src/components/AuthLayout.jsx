@@ -11,7 +11,7 @@ function AuthLayout({children}) {
     }
 
     if (user!=undefined && !user?.unsafeMetadata?.role && pathname!== "/onboarding") {
-       return <Navigate to="/onboarding"/>
+       return <Navigate to="/"/>
     }
 
     return children;
