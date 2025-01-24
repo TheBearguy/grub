@@ -77,3 +77,15 @@ export async function updateHiringStatus(token, {job_id}, isOpen) {
     }
     return data;
 }
+
+
+export async function addNewJob(token, _, jobData) {
+    const supabase = await supabaseClient(token);
+    let query = supabase.from("jobs").insert([jobData]).select();
+    const {data, error} = await query;
+    if (error) {
+        console.error("ERROR WHILE CREATING A JOB :: ", error);
+        return null;
+    }
+    return data; 
+}

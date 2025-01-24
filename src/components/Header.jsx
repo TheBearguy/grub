@@ -31,16 +31,14 @@ function Header() {
                     <Button variant="outline" onClick={() => setShowSignIn(true)}>Login</Button>
                 </SignedOut>
                 <SignedIn>
-                    {
-                        user?.unsafeMetaData?.role === "recruiter" && (
-                            <Link to="/post-jobs" >
-                                <Button variant="destructive" className="rounded-full">
-                                    <PenBox  size={20} className='mr-2'  />
-                                    Post job
-                                </Button>
-                            </Link>
-                        )
-                    }
+                    {user?.unsafeMetadata?.role === "recruiter" && (
+                        <Link to="/post-job">
+                            <Button variant="destructive" className="rounded-full">
+                            <PenBox size={20} className="mr-2" />
+                            Post a Job
+                            </Button>
+                        </Link>
+                    )}
                     <UserButton appearance={{
                         elements: {
                             avatarBox: "w-10 h-10"
