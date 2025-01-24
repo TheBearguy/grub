@@ -8,6 +8,7 @@ import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
 import MDEditor from '@uiw/react-md-editor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ApplyJobDrawer from '@/components/apply-to-job';
+import ApplicationCard from '@/components/ApplicationCard';
 
 
 
@@ -103,6 +104,14 @@ function Job() {
             <ApplyJobDrawer job={job} user={user} fetchJob={fnJob} applied={job?.applications.find((applicant) => applicant.candidate_id === user.id)} />
         )}
 
+        {job?.applications?.length > 0 && job?.recruiter_id == user?.id && (
+            <div className="flex flex-col gap-2">
+                <h2 className="font-bold mb-4 text-xl ml-1">Applications</h2>
+                {job?.applications.map((application) => {
+                    return <ApplicationCard application={application} key={application.id} />
+                })}
+            </div>
+        )}
 
     </div>
   )

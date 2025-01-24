@@ -30,3 +30,13 @@ export async function applyToJob(token,_, jobData) {
     }
     return data;
 }
+
+export async function updateApplicationStatus(token, {job_id}, status) {
+    const supabase = await supabaseClient(token);
+    let query = supabase.from("applications").update({status}).eq("job_id", job_id).select()
+    const {data, error} = await query;
+    if (error || data.length === 0) {
+        console.error("ERROR UPDATING APPLICATION STATUS :: ", error)
+        return null;
+    }
+}
